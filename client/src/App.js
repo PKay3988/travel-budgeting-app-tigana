@@ -52,9 +52,8 @@ const getWallets = () => {
   };
 
 
-
-  const addExpense = async (date, category, amount, amount_native_currency, notes, wallet_id) => {
-    let expense = {date, category, amount, amount_native_currency, notes, wallet_id};
+  const addExpense = async (date, category, amount, amount_native_currency, notes, wallet_id, id) => {
+    let expense = {date, category, amount, amount_native_currency, notes, wallet_id, id};
     let options = { method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(expense)};
@@ -68,7 +67,6 @@ const getWallets = () => {
       }
   }
   const addWallet = async (city, currency, native_currency, sum, sum_native_currency, user_id) => {
-    
     let wallet = { city, currency, native_currency, sum, sum_native_currency, user_id};
     let options = { method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -79,6 +77,17 @@ const getWallets = () => {
         console.log(wallets)
         getWallets();
         alert("New wallet added!")
+      } catch (err) {
+        console.log("network error:" , err);
+      }
+  }
+
+  const deleteTransaction = async (idTransaction) => {
+    let options = { method: "DELETE"};
+      try {
+        await fetch (`/expenses/${idTransaction}`, options);
+        getTransactions(id);
+        alert("Expense removed!")
       } catch (err) {
         console.log("network error:" , err);
       }
@@ -132,7 +141,7 @@ useEffect(() => {
          
           <Route path ="/newwallet" > <NewWallet addWallet={(city, currency, native_currency, sum, sum_native_currency, user_id) => addWallet(city, currency, native_currency, sum, sum_native_currency, user_id)} /> </Route>
           
-          <Route path ="/newtransaction"> <NewTransaction cityId={cityId} addExpense={(date, category, amount, mount_native_currency , notes, wallet_id) => addExpense(date, category, amount, mount_native_currency , notes, wallet_id)} /> </Route>
+          <Route path ="/newtransaction"> <NewTransaction cityId={cityId} addExpense={(date, category, amount, amount_native_currency, notes, wallet_id) => addExpense(date, category, amount, amount_native_currency, notes, wallet_id)} /> </Route>
           
           <Route path ="/exchangerates"> <ExchangeRates currency={currency} /> </Route>
       </Switch>  

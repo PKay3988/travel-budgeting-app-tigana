@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 
 const WalletDetail = ({expenses, cityId, cityName , currencyName, nativeCurrencyName, currency, getCurrency}) => {
     const { id } = useParams();
-    const [result, setResult] = useState([]);
+    const [transaction, setTransaction] = useState([]);
     const [sumTrans, setSumTrans] = useState(0);
     const [sumCurrency, setSumCurrency] = useState(0);
     const [currencyRate, setCurrencyRate] = useState(0);
@@ -34,17 +34,28 @@ const WalletDetail = ({expenses, cityId, cityName , currencyName, nativeCurrency
       .then(json => {
         // upon success, update tasks
         console.log(json);
-        setResult(json);
+        setTransaction(json);
       })
       .catch((error) => {
         console.log(error);
       });
     }
 
+    const deleteTransaction = async (idTransaction) => {
+      let options = { method: "DELETE"};
+        try {
+          await fetch (`/expenses/${idTransaction}`, options);
+          getTransactions(id);
+          alert("Expense removed!")
+        } catch (err) {
+          console.log("network error:" , err);
+        }
+    }
+
     const sumWallet = () => {
         let sum = 0;
         for (let i=0; i < expenses.length; i++) {
-          if(expenses[i].wallet_id == cityId) {
+          if(expenses[i].wallet_id === cityId) {
           sum += Number(expenses[i].amount);
         }
           }
@@ -94,9 +105,11 @@ const WalletDetail = ({expenses, cityId, cityName , currencyName, nativeCurrency
         </div>
         <div className="transaction-list"> 
          <ul>
-        {result.map((i) => 
+        {transaction.map((i) => 
         <li className="transaction" key={i.id} onClick={() => onSelectItem(i.id)}> {i.date} {i.notes} <strong> {i.amount.toFixed(2)} </strong>| 
         <strong> {((i.amount) *  currencyRate).toFixed(2)} </strong>
+        <button className="btn btn-light2" key={i.id} /*onClick={()= }*/>Edit</button>
+        <button className="btn btn-light3" key={i.id} onClick={()=> deleteTransaction(i.id)}> Delete</button>
          </li>)}
       </ul>
       </div>

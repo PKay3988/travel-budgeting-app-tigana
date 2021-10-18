@@ -43,6 +43,18 @@ router.post("/", (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
+//update wallet
+router.put("/:wallet_id", (req, res) => {
+  let {city, currency, native_currency, sum, sum_native_currency, user_id} = req.body;  
+    db(`UPDATE wallet SET (city, currency, native_currency, sum, sum_native_currency, user_id) VALUES ('${city}', '${currency}', '${native_currency}', ${sum}, ${sum_native_currency}, ${user_id})`
+    )
+    .then(results => {
+      // res.send({ message: "done!" });
+      getAllWallets(req, res);
+    })
+    .catch(err => res.status(500).send(err));
+});
+
 
 //delete a wallet 
 router.delete("/:wallet_id", (req, res) => {

@@ -89,7 +89,7 @@ li {
 }
 
 .transaction {
-  font-size: 9px;
+  font-size: 11px;
   text-align: left;
 }
 
@@ -133,7 +133,7 @@ li {
 .new-transaction {
   text-align: center;
   margin: 20px;
-  font-size: 13px;
+  font-size: 13x;
   display: flex;
   justify-content: right;
 }
@@ -145,10 +145,29 @@ li {
   border: none !important;
 }
 
+.btn-light2 {
+  font-size: 9px !important;
+  padding: 3px 3px !important;
+  margin-inline: 1px;
+  float: right;
+  background-color: #ffc107 !important;
+  border: none !important;
+}
+
+.btn-light3 {
+  font-size: 9px !important;
+  padding: 3px 3px !important;
+  margin-inline: 1px;
+  float: right;
+  background-color: #ffc107 !important;
+  border: none !important;
+}
+
+
 .new-transaction p {
   font-weight: bold;
   margin: auto 0;
-  padding-right: 10px;
+  padding-right: 6px;
 }
 
 .menu-nav,

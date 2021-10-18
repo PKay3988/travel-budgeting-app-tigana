@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 
 export const NewTransaction = (props) => {
 
-    const formInitialState = { date: "", category: " ", amount: "", amount_native_currency: "", notes: "", wallet_id: "",};
+    const formInitialState = { date: "", category: "Food", amount: "", amount_native_currency: "", notes: "", wallet_id: "",};
     const [formData, setFormData] = useState(formInitialState);
     
     
     const handleInputChange = (event) => {
     let { name, value } = event.target;
     
-    setFormData({ ... formData,  [name]: value});
+    setFormData({ ...formData,  [name]: value});
   }
 
     const handleSubmit = (event) => {

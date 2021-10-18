@@ -43,13 +43,25 @@ router.post("/", (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
-
-//delete an expense
-router.delete("/:expense_id", (req, res) => {
-  db(`DELETE FROM expenses WHERE id=${req.params.expense_id}`)
+//update expenses
+router.put("/:id", (req, res) => {
+  let {category, amount, amount_native_currency, date, notes, wallet_id} = req.body;
+  db(
+    `UPDATE expenses SET (category, amount, amount_native_currency, date, notes) = ('${category}', ${amount}, ${amount_native_currency},'${date}', '${notes}' where wallet_id = ${wallet_id})`
+  )
     .then(results => {
+      // res.send({ message: "done!" });
       getAllExpenses(req, res);
     })
+    .catch(err => res.status(500).send(err));
+});
+
+//delete an expense
+router.delete("/:id", (req, res) => {
+  db(`DELETE FROM expenses WHERE id=${req.params.id}`)
+    .then(() => {
+      res.send("expense deleted")
+        })
     .catch(err => res.status(500).send({ err: "not found" }));
 });
 

@@ -17,7 +17,7 @@ CREATE TABLE `Expenses` (
 	`id` int NOT NULL AUTO_INCREMENT,
 	`category` char(40),
 	`amount` int NOT NULL,
-	`sum_native_currency` int,
+	`amount_native_currency` int,
 	`date` char(40),
 	`notes` char(40),
 	`wallet_id` int NOT NULL,

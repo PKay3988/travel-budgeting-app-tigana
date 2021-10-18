@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import {  Link } from 'react-router-dom';
 
 export const NewWallet = (props) => {
-    const walletInitialState = { city: "", currency: "", native_currency: "",sum :" ", sum_native_currency:" ", user_id:"" };
+    const walletInitialState = { city: "", currency: "GBP", native_currency: "GBP",sum :" ", sum_native_currency:" ", user_id:"" };
 
     const [walletData, setWalletData] = useState(walletInitialState);
     
     const handleInputChangeWallet = (event) => {
     let { name, value } = event.target;
     // console.log( value);
-    setWalletData({ ... walletData,  [name]: value});
+    setWalletData({ ...walletData,  [name]: value});
     };
     
     const handleSubmitWallet = (event) => {
