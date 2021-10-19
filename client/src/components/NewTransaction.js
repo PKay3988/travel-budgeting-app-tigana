@@ -13,6 +13,11 @@ export const NewTransaction = (props) => {
     setFormData({ ...formData,  [name]: value});
   }
 
+  // let strDate = new Date();
+  // let shortYear = strDate.getFullYear();
+  // let twoDigitYear = shortYear.toString().substr(-2);
+
+
     const handleSubmit = (event) => {
     event.preventDefault();
     props.addExpense(formData.date, formData.category,formData.amount, 0, formData.notes, props.cityId);
@@ -52,7 +57,7 @@ export const NewTransaction = (props) => {
             onChange={(e) => handleInputChange(e)} name="notes" value= {formData.notes} placeholder="notes">
             </input>
           
-            <div class="col text-center">
+            <div className="col text-center">
             <button className="btn btn-light new-button" onClick={handleSubmit} type ="submit">
             submit
             </button>

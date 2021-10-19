@@ -147,8 +147,8 @@ li {
 
 .btn-light2 {
   font-size: 9px !important;
-  padding: 3px 3px !important;
-  margin-inline: 1px;
+  padding: 1.5px 1.5px !important;
+  margin-inline: .5px;
   float: right;
   background-color: #ffc107 !important;
   border: none !important;
@@ -156,8 +156,8 @@ li {
 
 .btn-light3 {
   font-size: 9px !important;
-  padding: 3px 3px !important;
-  margin-inline: 1px;
+  padding: 1.5px 1.5px !important;
+  margin-inline: .5px;
   float: right;
   background-color: #ffc107 !important;
   border: none !important;

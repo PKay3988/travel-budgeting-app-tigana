@@ -30,7 +30,7 @@ const getWallets = () => {
     fetch("/wallets")
       .then((response) => response.json())
       .then(json => {
-        console.log(json);
+        // console.log(json);
         setWallets(json);
       })
       .catch((error) => {
@@ -43,8 +43,9 @@ const getWallets = () => {
     fetch("/expenses")
       .then((response) => response.json())
       .then(json => {
-        console.log(json);
+        // console.log(json);
         setExpenses(json);
+        
       })
       .catch((error) => {
         console.log(error);
@@ -82,12 +83,13 @@ const getWallets = () => {
       }
   }
 
-  const deleteTransaction = async (idTransaction) => {
+  const deleteTransaction = (idTransaction) => {
     let options = { method: "DELETE"};
       try {
-        await fetch (`/expenses/${idTransaction}`, options);
-        getTransactions(id);
+         fetch (`/expenses/${idTransaction}`, options);
+       
         alert("Expense removed!")
+        getExpenses();
       } catch (err) {
         console.log("network error:" , err);
       }
@@ -96,7 +98,6 @@ const getWallets = () => {
   const getCity = (name) => {
     setCityName(name)
     console.log(name);
-
   }
 
   const getCityId = (id) => {
@@ -137,7 +138,7 @@ useEffect(() => {
       <Switch>
           <Route path ="/" exact> <WalletList wallets={wallets} getCityId= {(id) => getCityId (id) } getCity={(name) => getCity(name)} walletId={walletId} getCurrencyName={(currency) => getCurrencyName (currency)} getNativeCurrencyName={(native) => getNativeCurrencyName (native)} /> </Route> 
   
-          <Route path ="/walletdetail/:id"> <WalletDetail nativeCurrencyName ={nativeCurrencyName} currencyName ={currencyName} expenses={expenses} cityId={cityId} cityName={cityName} error={error} currency={currency}/> </Route> 
+          <Route path ="/walletdetail/:id"> <WalletDetail nativeCurrencyName ={nativeCurrencyName} currencyName ={currencyName} expenses={expenses} cityId={cityId} cityName={cityName} error={error} currency={currency} deleteTransaction={(id) => deleteTransaction(id)}/> </Route> 
          
           <Route path ="/newwallet" > <NewWallet addWallet={(city, currency, native_currency, sum, sum_native_currency, user_id) => addWallet(city, currency, native_currency, sum, sum_native_currency, user_id)} /> </Route>
           
