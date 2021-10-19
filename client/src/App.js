@@ -43,7 +43,7 @@ const getWallets = () => {
     fetch("/expenses")
       .then((response) => response.json())
       .then(json => {
-        // console.log(json);
+        console.log(json);
         setExpenses(json);
         
       })
@@ -83,13 +83,13 @@ const getWallets = () => {
       }
   }
 
-  const deleteTransaction = (idTransaction) => {
+  const deleteTransaction = async (idTransaction) => {
     let options = { method: "DELETE"};
       try {
-         fetch (`/expenses/${idTransaction}`, options);
-       
-        alert("Expense removed!")
-        getExpenses();
+         await fetch (`/expenses/${idTransaction}`, options);
+         console.log("string")
+         getExpenses();
+         alert("Expense removed!")
       } catch (err) {
         console.log("network error:" , err);
       }

@@ -61,20 +61,12 @@ const WalletDetail = ({expenses, cityId, cityName , currencyName, nativeCurrency
 
     }
 
-    const handleClick = async (transId) => {
-      await deleteTransaction(transId);
-      getTransactions(id);
-      sumWallet();
-      sumWalletCurrency();
-      getCurrency();
-    }
-
   useEffect(() => {
     getTransactions(id);
     sumWallet();
     sumWalletCurrency();
     getCurrency();
-  }, []);
+  }, [expenses]);
 
 
     return (
@@ -104,8 +96,8 @@ const WalletDetail = ({expenses, cityId, cityName , currencyName, nativeCurrency
         {transaction.map((i) => 
         <li className="transaction" key={i.id} onClick={() => onSelectItem(i.id)}> {i.date} {i.notes} <strong> {i.amount.toFixed(2)} </strong>| 
         <strong> {((i.amount) *  currencyRate).toFixed(2)} </strong>
-        <button className="btn btn-light2" key={i.id} /*onClick={()= }*/>Edit</button>
-        <button className="btn btn-light3" key={i.id} onClick={()=> handleClick(i.id)}> Delete</button>
+        <button className="btn btn-light2" /*onClick={()= }*/>Edit</button>
+        <button className="btn btn-light3" onClick={()=> deleteTransaction(i.id)}> Delete</button>
          </li>)}
       </ul>
       </div>
