@@ -14,7 +14,7 @@ export const WalletList = (props) => {
   
   }
   useEffect(() => {
-    
+    console.log(props.wallets)
   }, []);
 
 

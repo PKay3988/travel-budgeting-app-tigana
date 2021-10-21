@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
-const WalletDetail = ({expenses, cityId, cityName , currencyName, nativeCurrencyName, currency, getCurrency, deleteTransaction}) => {
+
+const WalletDetail = ({expenses, cityId, cityName , currencyName, nativeCurrencyName, currency, getCurrency, deleteTransaction, updateTransaction}) => {
     const { id } = useParams();
     const [transaction, setTransaction] = useState([]);
     const [sumTrans, setSumTrans] = useState(0);
@@ -62,6 +63,7 @@ const WalletDetail = ({expenses, cityId, cityName , currencyName, nativeCurrency
     }
 
   useEffect(() => {
+    console.log(id);
     getTransactions(id);
     sumWallet();
     sumWalletCurrency();
@@ -96,8 +98,14 @@ const WalletDetail = ({expenses, cityId, cityName , currencyName, nativeCurrency
         {transaction.map((i) => 
         <li className="transaction" key={i.id} onClick={() => onSelectItem(i.id)}> {i.date} {i.notes} <strong> {i.amount.toFixed(2)} </strong>| 
         <strong> {((i.amount) *  currencyRate).toFixed(2)} </strong>
-        <button className="btn btn-light2" /*onClick={()= }*/>Edit</button>
         <button className="btn btn-light3" onClick={()=> deleteTransaction(i.id)}> Delete</button>
+
+        <Link to={`/edittransaction/:id`} >
+        <button className="btn btn-light2"> Edit</button>
+        </Link>
+
+        
+        
          </li>)}
       </ul>
       </div>

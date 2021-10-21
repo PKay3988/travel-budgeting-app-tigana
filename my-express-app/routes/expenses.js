@@ -21,7 +21,16 @@ router.get("/", (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
-//display expense by ID 
+// // display expense by id
+router.get(`/expenses/:id`, (req, res) => {
+  db(`SELECT * FROM expenses WHERE id = ${req.params.id}`)
+   .then(results => {
+      res.send(results.data);
+    })
+    .catch(err => res.status(500).send(err));
+});
+
+//display expenses by Wallet ID 
 router.get("/:wallet_id", (req, res) => {
   db(`SELECT * FROM expenses WHERE wallet_id=${req.params.wallet_id}`)
     .then(results => {
@@ -44,10 +53,10 @@ router.post("/", (req, res) => {
 });
 
 //update expenses
-router.put("/:id", (req, res) => {
-  let {category, amount, amount_native_currency, date, notes, wallet_id} = req.body;
+router.put("/", (req, res) => {
+  let {category, amount, amount_native_currency, date, notes, id} = req.body;
   db(
-    `UPDATE expenses SET (category, amount, amount_native_currency, date, notes) = ('${category}', ${amount}, ${amount_native_currency},'${date}', '${notes}' where wallet_id = ${wallet_id})`
+    `UPDATE expenses SET (category, amount, amount_native_currency, date, notes,) = ('${category}', ${amount}, ${amount_native_currency},'${date}', '${notes}' where id = ${id})`
   )
     .then(results => {
       // res.send({ message: "done!" });

@@ -48,7 +48,7 @@ export const NewWallet = (props) => {
             <option value={"IDR"}>Rupiah</option>
             </select>
             </div>
-            <div class="col text-center">
+            <div className="col text-center">
             <button className=" btn btn-light new-button" onClick={handleSubmitWallet} type ="submit">
             submit
             </button>

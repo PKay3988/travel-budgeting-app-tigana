@@ -3,6 +3,7 @@ import React, { useEffect, useState} from "react";
 import WalletDetail from "./components/WalletDetail";
 import NewWallet from "./components/NewWallet";
 import NewTransaction from "./components/NewTransaction";
+import EditTransaction from "./components/EditTransaction";
 import WalletList from "./components/WalletList";
 import ExchangeRates from "./components/ExchangeRates";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
@@ -95,6 +96,22 @@ const getWallets = () => {
       }
   }
 
+  const updateTransaction = async (date, category, amount, amount_native_currency, notes, wallet_id, id) => {
+    let expense = {date, category, amount, amount_native_currency, notes, wallet_id, id};
+    let options = { method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(expense)};
+
+      try {
+        let result = await fetch (`/expenses/${id}`, options);
+        getExpenses();
+        alert("Expense updated!")
+      } catch (err) {
+        console.log("network error:" , err);
+      }
+  }
+  
+
   const getCity = (name) => {
     setCityName(name)
     console.log(name);
@@ -138,11 +155,13 @@ useEffect(() => {
       <Switch>
           <Route path ="/" exact> <WalletList wallets={wallets} getCityId= {(id) => getCityId (id) } getCity={(name) => getCity(name)} walletId={walletId} getCurrencyName={(currency) => getCurrencyName (currency)} getNativeCurrencyName={(native) => getNativeCurrencyName (native)} /> </Route> 
   
-          <Route path ="/walletdetail/:id"> <WalletDetail nativeCurrencyName ={nativeCurrencyName} currencyName ={currencyName} expenses={expenses} cityId={cityId} cityName={cityName} error={error} currency={currency} deleteTransaction={(id) => deleteTransaction(id)}/> </Route> 
+          <Route path ="/walletdetail/:id"> <WalletDetail nativeCurrencyName ={nativeCurrencyName} currencyName ={currencyName} expenses={expenses} cityId={cityId} cityName={cityName} error={error} currency={currency} deleteTransaction={(id) => deleteTransaction(id)} updateTransaction={(id) => updateTransaction(id)}/> </Route> 
          
           <Route path ="/newwallet" > <NewWallet addWallet={(city, currency, native_currency, sum, sum_native_currency, user_id) => addWallet(city, currency, native_currency, sum, sum_native_currency, user_id)} /> </Route>
           
           <Route path ="/newtransaction"> <NewTransaction cityId={cityId} addExpense={(date, category, amount, amount_native_currency, notes, wallet_id) => addExpense(date, category, amount, amount_native_currency, notes, wallet_id)} /> </Route>
+
+          <Route path="/edittransaction/:id"> <EditTransaction cityId={cityId} updateTransaction={(date, category, amount, amount_native_currency, notes, id) => updateTransaction(date, category, amount, amount_native_currency, notes, id)} /> </Route>
           
           <Route path ="/exchangerates"> <ExchangeRates currency={currency} /> </Route>
       </Switch>  
