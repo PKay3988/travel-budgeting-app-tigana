@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export const EditTransaction = (props) => { 
     const [expense, setExpense] = useState({date: "" , category: "", amount: "", amount_native_currency: "", notes: "", wallet_id: ""});
@@ -25,24 +25,23 @@ export const EditTransaction = (props) => {
   // let twoDigitYear = shortYear.toString().substr(-2);
 
 
-    const getTransaction = (id) => {
-    // console.log('hi')
-      fetch(`/expenses/${id}`)
-        .then((response) => response.json())
-        .then(json => {
-          console.log(json);
-          setExpense(json);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
+    // const getTransaction = (id) => {
+    // // console.log('hi')
+    //   fetch(`/expenses/${id}`)
+    //     .then((response) => response.json())
+    //     .then(json => {
+    //       console.log(json);
+    //       setExpense(json);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // };
 
     const handleSubmitEdit = (event) => {
     event.preventDefault();
-    getTransaction(EditTransaction)
-    EditTransaction();
-  };
+    props.updateTransaction(expense.date, expense.category,expense.amount, expense.amount_native_currency, expense.notes, expense.wallet_id);
+  }; 
     
 
     return (
@@ -54,7 +53,7 @@ export const EditTransaction = (props) => {
           <form className="form">
             <label></label>
             <input  type="date"
-            onChange={(e) => onChangeEdit(e)} name="date"  placeholder="date"  value= {expense.date} className="date">
+            onChange={onChangeEdit} name="date"  placeholder="date"  value= {expense.date} className="date">
             </input>
             
             {/* <input type="text"
@@ -70,11 +69,11 @@ export const EditTransaction = (props) => {
             </select>
 
             <input type="text"
-            onChange= {(e) => onChangeEdit(e)}  name="amount" value= {expense.amount} placeholder="amount">
+            onChange= {onChangeEdit}  name="amount" value= {expense.amount} placeholder="amount">
             </input>
        
            <input type="notes"
-            onChange= {(e) => onChangeEdit(e)} name="notes" value= {expense.notes} placeholder="notes">
+            onChange= {onChangeEdit} name="notes" value= {expense.notes} placeholder="notes">
             </input>
           
             <div className="col text-center">

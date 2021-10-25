@@ -31,7 +31,7 @@ const getWallets = () => {
     fetch("/wallets")
       .then((response) => response.json())
       .then(json => {
-        // console.log(json);
+        console.log(json);
         setWallets(json);
       })
       .catch((error) => {
@@ -84,11 +84,11 @@ const getWallets = () => {
       }
   }
 
-  const deleteTransaction = async (idTransaction) => {
+  const deleteTransaction = async (id) => {
     let options = { method: "DELETE"};
       try {
-         await fetch (`/expenses/${idTransaction}`, options);
-         console.log("string")
+         await fetch (`/expenses/${id}`, options);
+        //  console.log("string")
          getExpenses();
          alert("Expense removed!")
       } catch (err) {
@@ -97,7 +97,7 @@ const getWallets = () => {
   }
 
   const updateTransaction = async (date, category, amount, amount_native_currency, notes, wallet_id, id) => {
-    let expense = {date, category, amount, amount_native_currency, notes, wallet_id, id};
+    let expense = {date, category, amount, amount_native_currency, notes, wallet_id};
     let options = { method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(expense)};

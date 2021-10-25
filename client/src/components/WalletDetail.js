@@ -62,8 +62,12 @@ const WalletDetail = ({expenses, cityId, cityName , currencyName, nativeCurrency
 
     }
 
+    const selectTransaction = (id) => {
+      console.warn("function called", transaction[id] )
+  }
+
   useEffect(() => {
-    console.log(id);
+    // console.log(id);
     getTransactions(id);
     sumWallet();
     sumWalletCurrency();
@@ -101,7 +105,7 @@ const WalletDetail = ({expenses, cityId, cityName , currencyName, nativeCurrency
         <button className="btn btn-light3" onClick={()=> deleteTransaction(i.id)}> Delete</button>
 
         <Link to={`/edittransaction/:id`} >
-        <button className="btn btn-light2"> Edit</button>
+        <button className="btn btn-light2"/*onClick={()=> selectTransaction(i.id)}*/> Edit</button>
         </Link>
 
         

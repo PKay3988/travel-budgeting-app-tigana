@@ -53,10 +53,10 @@ router.post("/", (req, res) => {
 });
 
 //update expenses
-router.put("/", (req, res) => {
-  let {category, amount, amount_native_currency, date, notes, id} = req.body;
+router.put("/:id", (req, res) => {
+  let { id } = req.params.id;
   db(
-    `UPDATE expenses SET (category, amount, amount_native_currency, date, notes,) = ('${category}', ${amount}, ${amount_native_currency},'${date}', '${notes}' where id = ${id})`
+    `UPDATE expenses SET (category, amount, amount_native_currency, date, notes) = (${category}, ${amount}, ${amount_native_currency},${date}, ${notes} where id = ${req.body})`
   )
     .then(results => {
       // res.send({ message: "done!" });
